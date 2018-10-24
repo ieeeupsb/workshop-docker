@@ -1,0 +1,16 @@
+version: '3' #the version of docker-compose syntax we are using
+services: #the list of services which make up our application
+  web: #at this moment, it consists of a single service
+    build: . #tells docker-compose to use our Dockerfile to build this service
+  nginx:
+    image: nginx:1.15.5 #we don't need to build our own image, the one available on the docker registry suffices
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+  postgres:
+    image: postgres
+    environment:
+      - POSTGRES_PASSWORD=pgpassword
+      - POSTGRES_USER=pguser
+      - POSTGRES_DB=db
